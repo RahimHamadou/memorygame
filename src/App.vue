@@ -1,9 +1,11 @@
 <template>
 	<div class="container">
 		<div class="config">
-			<span>Nombre total de paires : 9</span> | <span>Nombre de tentatives : {{ nbTentative }} </span> |
-			<span>Temps de jeu : {{ timestamp }} </span> |
-			<span>Nombre de paires trouvées : {{ pairesTrouvées }} </span>
+			<div class="info">
+				<!-- <span>Nombre total de paires : 9</span>  -->
+				<span>Nombre de tentatives : {{ nbTentative }} </span> | <span>Temps de jeu : {{ timestamp }} </span> |
+				<span>Nombre de paires trouvées : {{ pairesTrouvées }} </span>
+			</div>
 			<button disabled class="btn btn-danger" id="recommencer" @click.self="recommencer">Recommencer</button>
 		</div>
 		<div class="cards">
@@ -105,20 +107,27 @@ export default {
 			if (this.pairesTrouvées === 9) {
 				clearInterval(this.timer);
 				document.querySelector("#recommencer").innerHTML = "Rejouer";
+				this.startTimer = false;
 			}
-			if (this.pairesTrouvées === 1) {
-				document.querySelector(".fireworks").style.display = "block";
-			}
+
+			// Celebration reussite
+
+			// if (this.pairesTrouvées === 1) {
+			// 	document.querySelector(".fireworks").style.display = "block";
+			// }
 		},
 		// restart
 		recommencer(e) {
 			this.nbTentative = 0;
 			this.nbTrouvées = 0;
 			this.timestamp = 0;
+			this.pairesTrouvées = 0;
+			this.startTimer = false;
 			e.target.setAttribute("disabled", "");
 			clearInterval(this.timer);
 			this.reset();
 			this.melange();
+			document.querySelector("#recommencer").innerHTML = "Recommencer";
 		},
 		// init
 		reset() {

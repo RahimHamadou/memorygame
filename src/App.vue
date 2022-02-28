@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 <template>
 	<div class="container">
 		<div class="config">
@@ -8,10 +9,12 @@
 			</div>
 			<button disabled class="btn btn-danger" id="recommencer" @click.self="recommencer">Recommencer</button>
 		</div>
-		<div class="cards">
+		<div class="congrats">
 			<div class="fireworks" style="display: none">
-				<h1 class="top">BRAVOOOOOOOO</h1>
+				<h2 class="top">Bravo !</h2>
 			</div>
+		</div>
+		<div class="cards">
 			<div class="card" v-for="(el, i) in pairesImages" :key="i" :data-id="el.id" @click.self="rotate">
 				<div class="card__front">
 					<div class="card-body">
@@ -24,6 +27,7 @@
 </template>
 
 <script>
+import { Fireworks } from "fireworks-js";
 export default {
 	name: "App",
 	data() {
@@ -112,9 +116,15 @@ export default {
 
 			// Celebration reussite
 
-			// if (this.pairesTrouvées === 1) {
-			// 	document.querySelector(".fireworks").style.display = "block";
-			// }
+			if (this.pairesTrouvées === 1) {
+				clearInterval(this.timer);
+				document.querySelector("#recommencer").innerHTML = "Rejouer";
+				this.startTimer = false;
+				this.fireworks();
+				setTimeout(function () {
+					document.querySelector(".cards").style.display = "none";
+				}, 2000);
+			}
 		},
 		// restart
 		recommencer(e) {
@@ -125,9 +135,12 @@ export default {
 			this.startTimer = false;
 			e.target.setAttribute("disabled", "");
 			clearInterval(this.timer);
+			document.querySelector(".fireworks").style.display = "none";
 			this.reset();
 			this.melange();
 			document.querySelector("#recommencer").innerHTML = "Recommencer";
+			document.querySelector(".cards").style.display = "flex";
+			// stopFireworks();
 		},
 		// init
 		reset() {
@@ -135,14 +148,27 @@ export default {
 				card.classList.remove("rotate");
 			});
 		},
+		fireworks() {
+			const container = document.querySelector(".fireworks");
+			document.querySelector(".fireworks").style.display = "block";
+			const fireworks = new Fireworks(container, {
+				acceleration: 1.1,
+				particles: 100,
+				explosion: 15,
+			});
+			fireworks.start();
+		},
+		stopFireworks() {
+			this.fireworks.stop();
+		},
 	},
 	mounted() {
 		this.melange();
+		this.fireworks;
 	},
 	components: {},
 };
 </script>
 
 <style lang="scss" src="./assets/app.scss"></style>
-
 // perfectionner

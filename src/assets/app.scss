@@ -61,19 +61,33 @@ span {
 				flex-direction: column;
 			}
 		}
-		.fireworks {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			z-index: 1;
-			background-color: #242527c1;
-			overflow: hidden;
-			.top {
-				font-size: 150%;
+		.congrats {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+
+			.fireworks {
+				padding: 20px;
+				// position: absolute;
+				// top: 0;
+				// bottom: 100px;
+				// left: 0;
+				// right: 0;
+				display: flex;
+				z-index: 1;
+				background-color: #4e327380;
+				overflow: hidden;
+
+				.top {
+					color: red;
+					margin: auto;
+					font-size: 2rem;
+				}
 			}
 		}
+
 		.cards {
 			display: flex;
 			flex-direction: row;

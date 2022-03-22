@@ -116,7 +116,7 @@ export default {
 
 			// Celebration reussite
 
-			if (this.pairesTrouvées === 1) {
+			if (this.pairesTrouvées === 9) {
 				clearInterval(this.timer);
 				document.querySelector("#recommencer").innerHTML = "Rejouer";
 				this.startTimer = false;

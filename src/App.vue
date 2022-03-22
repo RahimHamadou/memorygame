@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 <template>
 	<div class="container">
 		<div class="config">
